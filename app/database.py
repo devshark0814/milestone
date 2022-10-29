@@ -4,8 +4,8 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from env import DB_USER, DB_PASSWORD, DB_HOST, DB_NAME
 
 DATABASE = 'mysql://%s:%s@%s/%s?charset=utf8' % (
-    DB_USER,
-    DB_PASSWORD,
+    'root',
+    'root',
     DB_HOST,
     DB_NAME,
 )
