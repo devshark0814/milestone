@@ -9,15 +9,15 @@ services:
       context: ./docker/api
       dockerfile: Dockerfile
     ports:
-      - "8888:8000"
+      - "8000:8000"
     volumes:
       - ./app:/usr/src/app/app:cached
       - ./db:/usr/src/app/db:cached
       - ./scripts:/usr/src/app/scripts:cached
     working_dir: /usr/src/app/scripts
     command: bash -c "./run.sh"
-    networks:
-      - milestone-network
+    # networks:
+    #   - milestone-network
     environment:
       APP_ENV: "development"
       TZ: "Asia/Tokyo"
@@ -38,19 +38,32 @@ services:
       - ./docker/db/conf.d:/etc/mysql/conf.d:cached
       - ./log/db:/var/log/mysql:cached
       - ./docker/db/data:/var/lib/mysql
-    networks:
-      - milestone-network
+    # networks:
+    #   - milestone-network
     environment:
       APP_ENV: "development"
       TZ: "Asia/Tokyo"
     env_file:
       - .env.development
 
-networks:
-  default:
-    external:
-      name: bridge
-  milestone-network:
-    name: milestone-network
-    driver: bridge
-    external: true
+  web:
+    container_name: "milestone-web"
+    build: ./docker/web
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./web:/usr/src/app
+      - ./docker/web/resolv.conf:/etc/resolv.conf
+    tty: true
+    stdin_open: true
+    # networks:
+    #   - milestone-network
+
+# networks:
+#   default:
+#     external:
+#       name: bridge
+#   milestone-network:
+#     name: milestone-network
+#     driver: bridge
+#     external: true

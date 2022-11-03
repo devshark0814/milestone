@@ -31,10 +31,14 @@
 - assign_start_date
 - assign_end_date
 
+# dockerのwebの方でpackageがインストールできない場合
+- vi /etc/resolv.conf
+  - 8.8.8.8追加
 
 # 参考
 - https://zenn.dev/sh0nk/books/537bb028709ab9/viewer/0a38c1
 - https://zenn.dev/yusugomori/articles/a3d5dc8baf9e386a58e5
+- https://zenn.dev/tet0h/articles/docker-vuejs
 
 ``` sql
 -- milestone.m_projects definition
