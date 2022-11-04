@@ -30,7 +30,7 @@
 
     <!-- メイン -->
     <v-main class="blue-grey lighten-5">
-      <v-container fluid>
+      <v-container style="padding: 30px 120px;">
         <router-view></router-view>
       </v-container>
     </v-main>

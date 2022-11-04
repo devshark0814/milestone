@@ -1,14 +1,19 @@
 <template>
   <v-dialog
-    v-model="dialog"
+    v-if="_dialog"
+    v-model="_dialog"
+    width="750"
   >
-    <v-card>
-      sss
-    </v-card>
+    <UserForm @close="_dialog=false" />
   </v-dialog>
 </template>
 <script>
+import UserForm from '@/components/forms/UserForm.vue'
 export default {
+
+  components: {
+    UserForm
+  },
 
   props: {
     dialog: {
@@ -19,8 +24,18 @@ export default {
 
   data() {
     return {
-
     }
-  }
+  },
+
+  computed: {
+    _dialog: {
+      get() {
+        return this.dialog
+      },
+      set(v) {
+        this.$emit('close', v)
+      }
+    }
+  },
 }
 </script>
