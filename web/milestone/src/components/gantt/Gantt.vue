@@ -37,11 +37,13 @@
       caption="プロジェクト"
     />
     <DxColumn
+      :width="100"
       data-field="start"
       caption="開始日"
       data-type="date"
     />
     <DxColumn
+      :width="100"
       data-field="end"
       caption="終了日"
       data-type="date"
