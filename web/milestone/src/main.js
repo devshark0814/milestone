@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import vuetify from '@/plugins/vuetify' // path to vuetify export
 import store from './store'
+import 'devextreme/dist/css/dx.light.css';
 
 Vue.config.productionTip = false
 
