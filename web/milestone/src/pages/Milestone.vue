@@ -1,93 +1,55 @@
 <template>
-  <DxGantt
-    :task-list-width="500"
-    :height="700"
-    scale-type="weeks"
-  >
-
-    <DxTasks :data-source="tasks"/>
-    <DxDependencies :data-source="dependencies"/>
-    <DxResources :data-source="resources"/>
-    <DxResourceAssignments :data-source="resourceAssignments"/>
-
-    <DxToolbar>
-      <DxItem name="undo"/>
-      <DxItem name="redo"/>
-      <DxItem name="separator"/>
-      <DxItem name="collapseAll"/>
-      <DxItem name="expandAll"/>
-      <DxItem name="separator"/>
-      <DxItem name="addTask"/>
-      <DxItem name="deleteTask"/>
-      <DxItem name="separator"/>
-      <DxItem name="zoomIn"/>
-      <DxItem name="zoomOut"/>
-    </DxToolbar>
-
-    <DxEditing :enabled="true"/>
-    <DxValidation :auto-update-parent-tasks="true"/>
-
-    <DxColumn
-      :width="300"
-      data-field="title"
-      caption="Subject"
-    />
-    <DxColumn
-      data-field="start"
-      caption="Start Date"
-    />
-    <DxColumn
-      data-field="end"
-      caption="End Date"
-    />
-  </DxGantt>
+  <div>
+    <!-- <v-row>
+      <v-col>
+        <
+      </v-col>
+    </v-row> -->
+    <v-toolbar flat color="orange accent-1" :height="100">
+      <v-autocomplete
+        v-model="type"
+        label="表示期間設定"
+        placeholder="表示期間を選択してください"
+        :items="['months', 'quarters', 'years']"
+        background-color="white"
+        hide-details
+        hide-selected
+        outlined
+        flat
+        class="pa-2"
+        @change="changeType"
+      >
+      </v-autocomplete>
+    </v-toolbar>
+    <v-row class="pt-5">
+      <v-col>
+        <Gantt />
+      </v-col>
+    </v-row>
+  </div>
 </template>
 <script>
-import {
-  DxGantt,
-  DxTasks,
-  DxDependencies,
-  DxResources,
-  DxResourceAssignments,
-  DxColumn,
-  DxEditing,
-  DxValidation,
-  DxToolbar,
-  DxItem,
-} from 'devextreme-vue/gantt';
-
-import {
-  tasks,
-  dependencies,
-  resources,
-  resourceAssignments,
-} from './MilestoneSampleData.js';
-
+import { mapActions } from 'vuex'
+import Gantt from '@/components/gantt/Gantt.vue';
 export default {
+
   components: {
-    DxGantt,
-    DxTasks,
-    DxDependencies,
-    DxResources,
-    DxResourceAssignments,
-    DxColumn,
-    DxEditing,
-    DxValidation,
-    DxToolbar,
-    DxItem,
+    Gantt
   },
+
   data() {
     return {
-      tasks,
-      dependencies,
-      resources,
-      resourceAssignments,
+      type: 'months',
     };
+  },
+
+  methods: {
+    ...mapActions('gantt',['changeGanttType']),
+
+    /** タイプの更新 */
+    changeType() {
+      this.changeGanttType(this.type);
+    }
   },
 };
 </script>
-<style>
-  #gantt {
-    height: 700px;
-  }
-</style>
