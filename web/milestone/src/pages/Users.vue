@@ -43,7 +43,7 @@
         </template>
       </v-data-table>
     </v-card>
-    <UserDialog :dialog="userDialog" :userInfo="userInfo" @close="userDialog=false"/>
+    <UserDialog :dialog="userDialog" @close="userDialog=false"/>
   </div>
 </template>
 <script>

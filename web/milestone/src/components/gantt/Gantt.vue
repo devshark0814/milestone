@@ -5,6 +5,7 @@
     :scale-type="getGanttType"
     @task-edit-dialog-showing="onTaskEditDialogShowing"
     :task-content-template="taskContentTemplate"
+    @task-click="onTaskClick"
   >
 
     <DxTasks :data-source="tasks" />
@@ -53,8 +54,13 @@
         <div class="custom-task-wrapper">
           <div class="custom-task-title">{{ item.taskData.title }}</div>
         </div>
+        <div
+          class="custom-task-progress"
+          :style="{width: item.taskData.progress + '%'}"
+        />
       </div>
     </template>
+    <PjDialog :dialog="pjDialog" @close="pjDialog=false"/>
   </DxGantt>
 </template>
 <script>
@@ -74,7 +80,8 @@ import {
 import { locale } from 'devextreme/localization';
 
 
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
+import PjDialog from '@/components/PjDialog.vue';
 
 export default {
   components: {
@@ -88,8 +95,10 @@ export default {
     DxValidation,
     DxToolbar,
     DxItem,
-    DxContextMenu
+    DxContextMenu,
+    PjDialog
   },
+
   data() {
     return {
       tasks: [
@@ -99,8 +108,8 @@ export default {
           title: 'LP構成簡単くん',
           start: new Date('2022-11-01'),
           end: new Date('2023-01-15'),
-          progress: 0,
-          color: 'red'
+          progress: 50,
+          color: '#3D8080ED'
         },
         {
           id: 2,
@@ -108,10 +117,11 @@ export default {
           title: 'モンKEY',
           start: new Date('2022-11-01'),
           end: new Date('2023-01-15'),
-          progress: 0,
+          progress: 90,
           color: 'blue'
         }
       ],
+      pjDialog: false,
       // dependencies,
       // resources,
       // resourceAssignments,
@@ -127,12 +137,19 @@ export default {
   },
 
   methods: {
-    onTaskEditDialogShowing(obj) {
-      // if() {
+    ...mapActions('gantt', ['changePjModel']),
 
-      // }
-      console.log(obj)
+    /** デフォルトの編集モーダルは非表示 */
+    onTaskEditDialogShowing(obj) {
       obj.cancel = true;
+    },
+
+    /** PJクリック時に編集モーダルを表示する */
+    onTaskClick(obj) {
+      // store
+      this.changePjModel(obj.data);
+      // dialog open
+      this.pjDialog = true;
     }
   },
 };
@@ -180,6 +197,14 @@ export default {
 .custom-task-title {
   font-weight: 600;
   font-size: 13px;
+}
+.custom-task-progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.3);
 }
 /* --------------------------------- */
 </style>
