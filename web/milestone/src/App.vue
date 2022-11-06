@@ -45,6 +45,7 @@
         items: [
           { title: 'Dashboard', icon: 'mdi-view-dashboard', url: '/' },
           { title: 'Users', icon: 'mdi-image', url: '/users' },
+          { title: 'Projects', icon: 'mdi-image', url: '/projects' },
           { title: 'Milestone', icon: 'mdi-help-box', url: '/milestone' },
         ]
       }

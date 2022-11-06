@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Dashboard from '@/pages/Dashboard'
 import Users from '@/pages/Users'
+import Projects from '@/pages/Projects'
 import Milestone from '@/pages/Milestone'
 
 Vue.use(Router)
@@ -24,6 +25,11 @@ export default new Router({
       path: '/users',
       name: 'Users',
       component: Users
+    },
+    {
+      path: '/projects',
+      name: 'Projects',
+      component: Projects
     },
     {
       path: '/milestone',
