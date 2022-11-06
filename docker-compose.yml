@@ -53,6 +53,7 @@ services:
       - "8080:8080"
     volumes:
       - ./web:/usr/src/app
+      - node_modules_volume:/usr/src/app/milestone/node_modules
       - ./docker/web/resolv.conf:/etc/resolv.conf
     tty: true
     stdin_open: true
@@ -67,3 +68,5 @@ services:
 #     name: milestone-network
 #     driver: bridge
 #     external: true
+volumes:
+  node_modules_volume:
