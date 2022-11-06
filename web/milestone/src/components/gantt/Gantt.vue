@@ -62,7 +62,7 @@
         />
       </div>
     </template>
-    <PjDialog :dialog="pjDialog" @close="pjDialog=false"/>
+    <ComDialog :dialog="comDialog" form="MilestoneForm" @close="comDialog=false"/>
   </DxGantt>
 </template>
 <script>
@@ -83,7 +83,7 @@ import { locale } from 'devextreme/localization';
 
 
 import { mapGetters, mapActions } from 'vuex';
-import PjDialog from '@/components/PjDialog.vue';
+import ComDialog from '@/components/ComDialog.vue';
 
 export default {
   components: {
@@ -98,7 +98,7 @@ export default {
     DxToolbar,
     DxItem,
     DxContextMenu,
-    PjDialog
+    ComDialog
   },
 
   data() {
@@ -123,7 +123,8 @@ export default {
           color: 'blue'
         }
       ],
-      pjDialog: false,
+      comDialog: false,
+      taskContentTemplate: ''
       // dependencies,
       // resources,
       // resourceAssignments,
@@ -151,7 +152,7 @@ export default {
       // store
       this.changePjModel(obj.data);
       // dialog open
-      this.pjDialog = true;
+      this.comDialog = true;
     }
   },
 };

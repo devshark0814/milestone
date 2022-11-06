@@ -11,11 +11,13 @@
 <script>
 import UserForm from '@/components/forms/UserForm.vue'
 import ProjectForm from '@/components/forms/ProjectForm.vue'
+import MilestoneForm from '@/components/forms/MilestoneForm.vue'
 export default {
 
   components: {
     UserForm,
-    ProjectForm
+    ProjectForm,
+    MilestoneForm
   },
 
   props: {
