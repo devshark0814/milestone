@@ -4,16 +4,18 @@
       <v-data-table
         :headers="headers"
         :items="desserts"
+        :search="searchText"
         class="elevation-0 pa-3"
         @click:row="clickRow"
       >
         <template v-slot:top>
           <v-toolbar flat>
             <v-text-field
-                  outlined
-                  placeholder="Search User"
-                  hide-details
-                  dense
+              v-model="searchText"
+              outlined
+              placeholder="Search User"
+              hide-details
+              dense
             >
             </v-text-field>
             <v-spacer></v-spacer>
@@ -66,7 +68,8 @@ export default {
       ],
       userDialog: false,
       imgPath: require('@/assets/user.jpg'),
-      userInfo: {}
+      userInfo: {},
+      searchText: '',
     }
   },
 
