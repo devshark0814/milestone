@@ -49,9 +49,17 @@ export default {
     },
 
     save() {
-      // TODO ユーザー登録
-      console.log(this.getUser)
-      console.log(this.user)
+      this.close()
+      this.$axios
+        .post("users/",this.user)
+        .then(res => {
+          console.info(res);
+          alert('登録しました')
+        })
+        .catch(err => {
+          alert('失敗しました')
+          console.err(err);
+        })
     }
   }
 };

@@ -70,11 +70,24 @@ export default {
     }
   },
 
+  created() {
+    this.search()
+  },
+
   methods: {
     ...mapActions('user', ['changeUser']),
 
     search() {
       // TODO 一覧検索
+      this.$axios
+        .get("users/")
+        .then(res => {
+          this.desserts = res.data
+        })
+        .catch(err => {
+          alert('一覧取得に失敗しました')
+          console.err(err);
+        })
     },
 
     clickRow(item) {

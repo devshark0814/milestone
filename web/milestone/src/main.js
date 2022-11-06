@@ -6,9 +6,11 @@ import router from './router'
 import vuetify from '@/plugins/vuetify' // path to vuetify export
 import store from './store'
 import 'devextreme/dist/css/dx.light.css';
+import AxiosPlugin from './plugins/axios';
 
 Vue.config.productionTip = false
 
+Vue.use(AxiosPlugin)
 
 /* eslint-disable no-new */
 new Vue({
