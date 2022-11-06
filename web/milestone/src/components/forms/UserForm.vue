@@ -56,10 +56,6 @@ export default {
           console.info(res);
           alert('登録しました')
         })
-        .catch(err => {
-          alert('失敗しました')
-          console.err(err);
-        })
     }
   }
 };
