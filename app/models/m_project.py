@@ -12,6 +12,7 @@ class MProject(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(10), nullable=False)
     description = Column(Text, nullable=True)
+    priority = Column(Integer, nullable=True)
     sale_cost = Column(Integer, nullable=True)
     planned_release_date = Column(DATETIME, nullable=True)
     fact_release_date = Column(DATETIME, nullable=True)
