@@ -21,7 +21,17 @@
           </v-row>
           <v-row>
             <v-col>
-              <v-text-field v-model="model.title" label="プロジェクト名" outlined readonly></v-text-field>
+              <v-autocomplete
+                v-if="!model.id"
+                v-model="model.title"
+                label="プロジェクト名"
+                :items="projectList"
+                item-text="text"
+                item-value="value"
+                @change="changeProject"
+                outlined clearable hide-details="auto">
+              </v-autocomplete>
+              <v-text-field v-else v-model="model.title" label="プロジェクト名" outlined readonly></v-text-field>
             </v-col>
           </v-row>
           <v-row>
@@ -45,7 +55,7 @@
               </v-autocomplete>
             </v-col>
             <v-col>
-              <v-text-field v-model="model.progress" type="number" label="進捗率" outlined clearable hide-details="auto"></v-text-field>
+              <v-text-field v-model.number="model.progress" type="number" label="進捗率" outlined clearable hide-details="auto"></v-text-field>
             </v-col>
           </v-row>
         </v-form>
@@ -82,7 +92,10 @@ export default {
         { text: '垂野', value: 3 , img: ''},
       ],
       users: [],
-      color: '#000000'
+      color: '#000000',
+
+      projects: [],
+      projectList: [],
     };
   },
 
@@ -90,8 +103,22 @@ export default {
     ...mapGetters('gantt', ['getMilestoneModel']),
   },
 
+  watch: {
+    // ドラッグして日付を変更されるとフォーマットが崩れるので再フォーマット
+    'model.start': function(newVal, oldVal) {
+      this.model.start = new Date(newVal).toISOString().substr(0, 10)
+    },
+    'model.end': function(newVal, oldVal) {
+      this.model.end = new Date(newVal).toISOString().substr(0, 10)
+    }
+  },
+
   mounted() {
     this.model = {...this.getMilestoneModel};
+    if (!Object.keys(this.model).length) {
+      this.search()
+      return;
+    }
     this.users = this.model.assign_user_ids.split(',').map(Number);
     this.color = this.model.color;
   },
@@ -99,14 +126,28 @@ export default {
   methods: {
     ...mapActions('gantt',['changeMilestoneModel']),
 
+    search:async function() {
+      await this.$axios
+        .get("projects/")
+        .then(res => {
+          this.projects = res.data
+          this.projectList = this.projects.map((v) => ({
+            text: v.name,
+            value: v.id
+          }))
+        })
+    },
+
     close() {
       this.$emit('close');
     },
 
     save: async function() {
+      // TODO ドラッグで期間を編集した際のsave
       const method = ('id' in this.model) ? 'PUT' : 'POST'
       const url = ('id' in this.model) ? 'milestones/' + this.model.id : 'milestones/'
       this.model.color = this.color;
+      this.model.assign_user_ids = this.users.join(',');
       await this.$axios({
         method: method,
         url: url,
@@ -116,6 +157,18 @@ export default {
         alert('処理完了')
         this.close()
       })
+    },
+
+    /** プロジェクト変更時（新規時のみ） */
+    changeProject(id) {
+      this.model = {
+        project_id: id,
+        assign_user_ids: '',
+        start_date: '',
+        end_date: '',
+        progress: '',
+        color: ''
+      }
     }
   }
 };

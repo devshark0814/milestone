@@ -12,8 +12,8 @@ def create(db: Session, request: MilestoneCreateRequest):
     model = TMilestones(
         project_id = request.project_id,
         assign_user_ids = request.assign_user_ids,
-        start_date = request.start_date,
-        end_date = request.end_date,
+        start_date = request.start,
+        end_date = request.end,
         progress = request.progress,
         color = request.color,
     )

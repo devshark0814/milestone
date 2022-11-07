@@ -62,7 +62,7 @@
         />
       </div>
     </template>
-    <ComDialog :dialog="comDialog" form="MilestoneForm" @close="comDialog=false"/>
+    <ComDialog :dialog="comDialog" form="MilestoneForm" @close="closeDialog"/>
   </DxGantt>
 </template>
 <script>
@@ -145,6 +145,11 @@ export default {
       this.changeMilestoneModel(milestone);
       // dialog open
       this.comDialog = true;
+    },
+
+    closeDialog(){
+      this.comDialog = false
+      this.search()
     }
   },
 };

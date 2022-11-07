@@ -4,9 +4,9 @@ from pydantic import BaseModel, Field
 # for Create-----------------------------------
 class MilestoneCreateRequest(BaseModel):
   project_id: int = Field(..., description="プロジェクトID", example=1)
-  assign_user_ids: str = Field(None, description="アサインメンバーリスト", example=[1,2,3])
-  start_date: date = Field(None, description="開始日", example="2022-01-01")
-  end_date: date = Field(None, description="終了日", example="2022-01-01")
+  assign_user_ids: str = Field(None, description="アサインメンバーリスト", example="1,2,3")
+  start: date = Field(None, description="開始日", example="2022-01-01")
+  end: date = Field(None, description="終了日", example="2022-01-01")
   progress: int = Field(None, description="進捗率", example=50)
   color: str = Field(None, description="マイルストーン色", example="#3D8080ED")
   class Config():
