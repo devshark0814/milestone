@@ -7,7 +7,7 @@ const getters = {
   getGanttType(state) {
     return state.ganttType;
   },
-  getPjModel(state) {
+  getMilestoneModel(state) {
     return state.pjModel;
   },
 };
@@ -16,8 +16,8 @@ const actions = {
   changeGanttType({ commit }, val) {
     commit("changeGanttType", val);
   },
-  changePjModel({ commit }, val) {
-    commit("changePjModel", val);
+  changeMilestoneModel({ commit }, val) {
+    commit("changeMilestoneModel", val);
   },
 };
 
@@ -25,7 +25,7 @@ const mutations = {
   changeGanttType(state, value) {
     state.ganttType = value;
   },
-  changePjModel(state, value) {
+  changeMilestoneModel(state, value) {
     state.pjModel = value;
   },
 };

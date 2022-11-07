@@ -1,10 +1,5 @@
 <template>
   <div>
-    <!-- <v-row>
-      <v-col>
-        <
-      </v-col>
-    </v-row> -->
     <v-toolbar flat color="orange accent-1" :height="100">
       <v-autocomplete
         v-model="type"
@@ -20,35 +15,58 @@
         @change="changeType"
       >
       </v-autocomplete>
+      <v-spacer />
+      <v-btn
+            depressed
+            color="primary"
+            class="mt-1"
+            @click="clickNew"
+      >
+        <v-icon class="mr-2">mdi-account-multiple-plus</v-icon>
+          新規追加
+      </v-btn>
     </v-toolbar>
     <v-row class="pt-5">
       <v-col>
         <Gantt />
       </v-col>
     </v-row>
+    <ComDialog :dialog="comDialog" form="MilestoneForm" @close="dialogClose"/>
   </div>
 </template>
 <script>
 import { mapActions } from 'vuex'
 import Gantt from '@/components/gantt/Gantt.vue';
+import ComDialog from '@/components/ComDialog.vue';
 export default {
 
   components: {
-    Gantt
+    Gantt,
+    ComDialog
   },
 
   data() {
     return {
       type: 'months',
+      comDialog: false,
     };
   },
 
   methods: {
-    ...mapActions('gantt',['changeGanttType']),
+    ...mapActions('gantt',['changeGanttType', 'changeMilestoneModel']),
 
     /** タイプの更新 */
     changeType() {
       this.changeGanttType(this.type);
+    },
+
+    clickNew() {
+      this.changeMilestoneModel({});
+      this.comDialog = true;
+    },
+
+    dialogClose() {
+      this.comDialog = false;
     }
   },
 };

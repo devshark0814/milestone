@@ -8,7 +8,7 @@
     @task-click="onTaskClick"
   >
 
-    <DxTasks :data-source="tasks" />
+    <DxTasks :data-source="milestones" />
     <!-- <DxDependencies :data-source="dependencies"/>
     <DxResources :data-source="resources"/>
     <DxResourceAssignments :data-source="resourceAssignments"/> -->
@@ -103,26 +103,7 @@ export default {
 
   data() {
     return {
-      tasks: [
-        {
-          id: 1,
-          parentId: 0,
-          title: 'LP構成簡単くん',
-          start: new Date('2022-11-01'),
-          end: new Date('2023-01-15'),
-          progress: 50,
-          color: '#3D8080ED'
-        },
-        {
-          id: 2,
-          parentId: 0,
-          title: 'モンKEY',
-          start: new Date('2022-11-01'),
-          end: new Date('2023-01-15'),
-          progress: 90,
-          color: 'blue'
-        }
-      ],
+      milestones: [],
       comDialog: false,
       taskContentTemplate: ''
       // dependencies,
@@ -133,6 +114,7 @@ export default {
 
   created() {
     locale('jp');
+    this.search()
   },
 
   computed: {
@@ -140,7 +122,15 @@ export default {
   },
 
   methods: {
-    ...mapActions('gantt', ['changePjModel']),
+    ...mapActions('gantt', ['changeMilestoneModel']),
+
+    search() {
+      this.$axios
+        .get("milestones/")
+        .then(res => {
+          this.milestones = res.data
+        })
+    },
 
     /** デフォルトの編集モーダルは非表示 */
     onTaskEditDialogShowing(obj) {
@@ -149,8 +139,10 @@ export default {
 
     /** PJクリック時に編集モーダルを表示する */
     onTaskClick(obj) {
+      let id = obj.data.id
+      let milestone = this.milestones.find((v) => v.id == id)
       // store
-      this.changePjModel(obj.data);
+      this.changeMilestoneModel(milestone);
       // dialog open
       this.comDialog = true;
     }

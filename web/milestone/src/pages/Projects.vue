@@ -36,13 +36,7 @@
           </v-toolbar>
         </template>
         <template v-slot:item.priority="{item}">
-          <v-chip
-            label
-            :color="priorityColor(item.priority)"
-            :text-color="priorityTextColor(item.priority)"
-          >
-            {{ priorityName(item.priority) }}
-          </v-chip>
+          <PriorityChip :priority="item.priority" />
         </template>
       </v-data-table>
     </v-card>
@@ -51,11 +45,13 @@
 </template>
 <script>
 import ComDialog from '@/components/ComDialog.vue';
+import PriorityChip from '@/components/PriorityChip.vue';
 import { mapActions } from 'vuex'
 export default {
 
   components: {
     ComDialog,
+    PriorityChip
   },
 
   data() {
@@ -77,39 +73,6 @@ export default {
 
   created() {
     this.search()
-  },
-
-  computed: {
-    priorityName: (v) => {
-      return (v) => {
-        console.log(v)
-        switch (v) {
-          case 1:
-            return '低め'
-          case 2:
-            return '可能なら'
-          case 3:
-            return '通常'
-          case 4:
-            return '高め'
-          default:
-            return '緊急'
-        }
-      }
-    },
-    priorityColor: (v) => {
-      return (v) => {
-        if(v==4) return 'orange lighten'
-        if(v==5) return 'red darken-1'
-        return 'light-blue lighten-5'
-      }
-    },
-    priorityTextColor: (v) => {
-      return (v) => {
-        if(v==4 || v==5) return 'white'
-        return 'light-blue darken-1'
-      }
-    },
   },
 
   methods: {

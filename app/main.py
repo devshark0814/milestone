@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware # 追加
 
-from routers import user, project
+from routers import user, project, milestone
 
 app = FastAPI()
 # CORSを回避するために追加（今回の肝）
@@ -15,6 +15,7 @@ app.add_middleware(
 
 app.include_router(user.router)
 app.include_router(project.router)
+app.include_router(milestone.router)
 
 @app.get('/')
 async def root():
