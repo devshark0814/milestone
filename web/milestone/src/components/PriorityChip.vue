@@ -20,7 +20,6 @@ export default {
   computed: {
     priorityName: (v) => {
       return (v) => {
-        console.log(v)
         switch (v) {
           case 1:
             return '低め'

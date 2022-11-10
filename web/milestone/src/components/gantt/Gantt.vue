@@ -159,14 +159,16 @@ export default {
     userName: function(v) {
       return function(v) {
         let item = this.userList.find((item) => item.value === v);
-        console.log(item)
         return item.text.substr(0, 1)
       }
     }
   },
 
-  mounted() {
-
+  watch: {
+    /** 期間切り替え時に再描画 */
+    getGanttType: function(newv, oldv) {
+      this.gantt.refresh();
+    }
   },
 
   methods: {

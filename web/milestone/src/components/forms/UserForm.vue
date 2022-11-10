@@ -53,7 +53,6 @@ export default {
       this.$axios
         .post("users/",this.user)
         .then(res => {
-          console.info(res);
           alert('登録しました')
         })
     }
