@@ -241,7 +241,6 @@ export default {
 }
 /* --------------------------------- */
 
-/* TODO avatorの高さや見え方 */
 /* 右側のエリアの行高さ-------------- */
 .custom-row {
   /* background-color: red; */
