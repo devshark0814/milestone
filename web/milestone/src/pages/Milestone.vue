@@ -5,13 +5,15 @@
         v-model="type"
         label="表示期間設定"
         placeholder="表示期間を選択してください"
-        :items="['months', 'quarters', 'years']"
+        :items="types"
         background-color="white"
         hide-details
         hide-selected
         outlined
         flat
         class="pa-2"
+        item-key="text"
+        item-value="id"
         @change="changeType"
       >
       </v-autocomplete>
@@ -49,6 +51,11 @@ export default {
     return {
       type: 'months',
       comDialog: false,
+      types: [
+        { text: '月表示', id: 'months' },
+        { text: '四半期表示', id: 'quarters' },
+        { text: '年表示', id: 'years' },
+      ]
     };
   },
 

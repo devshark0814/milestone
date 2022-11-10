@@ -29,7 +29,7 @@
       <DxItem name="zoomOut"/>
     </DxToolbar> -->
 
-    <DxEditing :enabled="true" :allow-task-updating="true" />
+    <DxEditing :enabled="false" :allow-task-updating="true" />
     <DxContextMenu :enabled="false" />
     <!-- <DxValidation :auto-update-parent-tasks="true"/> -->
 
@@ -152,6 +152,7 @@ export default {
 
     user_ids: function(v) {
       return function(v){
+        if(!v) return ''
         return v.split(',').map(Number);
       }
     },
