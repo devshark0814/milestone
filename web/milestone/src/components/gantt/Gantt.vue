@@ -10,7 +10,7 @@
     @content-ready="onContentReady"
   >
 
-    <DxTasks :data-source="milestones" />
+    <DxTasks :data-source="milestones" assign-user-ids-expr="assign_user_ids"/>
     <!-- <DxDependencies :data-source="dependencies"/>
     <DxResources :data-source="resources"/>
     <DxResourceAssignments :data-source="resourceAssignments"/> -->
@@ -51,7 +51,7 @@
       data-type="date"
     />
     <DxColumn
-      :width="100"
+      :width="1"
       data-field="assign_user_ids"
       caption="アサイン"
       data-type="string"
