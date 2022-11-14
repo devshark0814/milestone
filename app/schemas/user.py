@@ -15,8 +15,10 @@ class UserBase(BaseModel):
         orm_mode = True
 
 # selectで使用する部分
-class User(UserBase):
+class User(BaseModel):
     id: int
+    name: str = Field(..., description="氏名", example="下津曲 翔平")
+    image: str = Field(None, description="画像URLパス", example="/XXX/XXXXX/XXX.png")
     created_at: datetime = Field(None, description="2022-01-01 09:00:00")
     updated_at: datetime = Field(None, description="2022-01-01 09:00:00")
     deleted_at: datetime = Field(None, description="2022-01-01 09:00:00")
